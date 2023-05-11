@@ -5,7 +5,7 @@ import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 
 import { stripe } from '../lib/stripe'
-import { GetServerSideProps } from 'next'
+import { GetStaticProps } from 'next'
 import Stripe from 'stripe'
 
 interface HomeProps {
@@ -44,7 +44,7 @@ export default function Home({ products }: HomeProps) {
 
 // Para informações que necessariamente precisam estar disponíveis assim que a página abrir
 // Não fica disponível no Client Side, sendo um opção para códigos sensíveis
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const response = await stripe.products.list({
     expand: ['data.default_price'],
   })
@@ -64,5 +64,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     props: {
       products,
     },
+    revalidate: 60 * 60 * 2,
   }
 }
