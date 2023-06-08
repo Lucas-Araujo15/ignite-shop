@@ -13,10 +13,8 @@ globalStyles()
 export default function App({ Component, pageProps }: AppProps) {
   const [drawerStatus, setDrawerStatus] = useState<'open' | 'closed'>('closed')
 
-  function handleSetDrawerStatus() {
-    drawerStatus === 'open'
-      ? setDrawerStatus('closed')
-      : setDrawerStatus('open')
+  function handleSetDrawerStatus(status: 'open' | 'closed') {
+    setDrawerStatus(status)
   }
 
   return (
