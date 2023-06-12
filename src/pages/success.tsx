@@ -23,21 +23,17 @@ export default function Success({ customerName, products }: SuccessProps) {
       </Head>
 
       <SuccessContainer>
-        <h1>Compra efetuada!</h1>
-
-        <ImageContainer>
+        <div>
           {products.map((product) => {
             return (
-              <Image
-                key={product.imageUrl}
-                src={product.imageUrl}
-                width={120}
-                height={110}
-                alt=""
-              />
+              <ImageContainer key={product.imageUrl}>
+                <Image src={product.imageUrl} width={120} height={110} alt="" />
+              </ImageContainer>
             )
           })}
-        </ImageContainer>
+        </div>
+
+        <h1>Compra efetuada!</h1>
 
         <p>
           Uhuul <strong>{customerName}</strong>, sua compra de {products.length}{' '}
