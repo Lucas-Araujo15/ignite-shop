@@ -1,12 +1,11 @@
 import { AppProps } from 'next/app'
 import { globalStyles } from '../styles/global'
-import { HandbagSimple } from 'phosphor-react'
-import logoImg from '../assets/logo.svg'
-import { CartButton, Container, Header } from '../styles/pages/app'
+import { Container } from '../styles/pages/app'
 
-import Image from 'next/image'
 import Drawer from '../components/drawer'
 import { useState } from 'react'
+import { CartContextProvider } from '../contexts/cart-context'
+import Header from '../components/header'
 
 globalStyles()
 
@@ -19,15 +18,11 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <Container>
-      <Drawer status={drawerStatus} changeStatus={handleSetDrawerStatus} />
-      <Header>
-        <Image priority src={logoImg} alt="" />
-        <CartButton onClick={() => setDrawerStatus('open')}>
-          <span>1</span>
-          <HandbagSimple weight="bold" size={24} />
-        </CartButton>
-      </Header>
-      <Component {...pageProps} />
+      <CartContextProvider>
+        <Drawer status={drawerStatus} changeStatus={handleSetDrawerStatus} />
+        <Header setDrawerStatus={handleSetDrawerStatus} />
+        <Component {...pageProps} />
+      </CartContextProvider>
     </Container>
   )
 }

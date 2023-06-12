@@ -1,18 +1,27 @@
+import { useContext } from 'react'
 import {
   ProductCardContainer,
   ProductInfo,
 } from '../styles/components/product-card'
+import { CartContext, Product } from '../contexts/cart-context'
+import Image from 'next/image'
 
-export default function ProductCard() {
+interface ProductCartProps {
+  product: Product
+}
+
+export default function ProductCard({ product }: ProductCartProps) {
+  const { removeProduct } = useContext(CartContext)
+
   return (
     <ProductCardContainer>
       <div>
-        <p>Imagem</p>
+        <Image src={product.imageUrl} width={95} height={95} alt="" />
       </div>
       <ProductInfo>
-        <h3>Camiseta muito bonita</h3>
-        <span>R$ 79,90</span>
-        <button>Remover</button>
+        <h3>{product.name}</h3>
+        <span>{product.price}</span>
+        <button onClick={() => removeProduct(product.id)}>Remover</button>
       </ProductInfo>
     </ProductCardContainer>
   )

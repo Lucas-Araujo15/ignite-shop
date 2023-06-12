@@ -14,6 +14,11 @@ export const ProductCardContainer = styled('div', {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+
+    img: {
+      width: '100%',
+      objectFit: 'cover',
+    },
   },
 })
 
@@ -21,7 +26,7 @@ export const ProductInfo = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  justifyContent: 'space-between',
+  justifyContent: 'space-around',
 
   h3: {
     fontSize: '$md',

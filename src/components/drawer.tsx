@@ -7,6 +7,8 @@ import {
   OrderInformationContainer,
 } from '../styles/components/drawer'
 import ProductCard from './product-card'
+import { useContext } from 'react'
+import { CartContext } from '../contexts/cart-context'
 
 interface DrawerProps {
   status: 'open' | 'closed'
@@ -14,6 +16,8 @@ interface DrawerProps {
 }
 
 export default function Drawer({ status, changeStatus }: DrawerProps) {
+  const { products } = useContext(CartContext)
+
   return (
     <DrawerContainer drawer={status}>
       <X size={24} onClick={() => changeStatus('closed')} />
@@ -21,16 +25,16 @@ export default function Drawer({ status, changeStatus }: DrawerProps) {
         <ItemsListContainer>
           <h2>Sacola de compras</h2>
           <ItemsList>
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            {products?.map((product) => {
+              return <ProductCard product={product} key={product.id} />
+            })}
           </ItemsList>
         </ItemsListContainer>
         <OrderInformationContainer>
           <div>
             <OrderInformation>
               <span>Quantidade</span>
-              <span>3 itens</span>
+              <span>{products.length} itens</span>
             </OrderInformation>
             <OrderInformation>
               <span>Valor total</span>
