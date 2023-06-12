@@ -20,7 +20,12 @@ export default function ProductCard({ product }: ProductCartProps) {
       </div>
       <ProductInfo>
         <h3>{product.name}</h3>
-        <span>{product.price}</span>
+        <span>
+          {new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          }).format(product.price)}
+        </span>
         <button onClick={() => removeProduct(product.id)}>Remover</button>
       </ProductInfo>
     </ProductCardContainer>

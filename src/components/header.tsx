@@ -17,7 +17,6 @@ export default function Header({ setDrawerStatus }: HeaderProps) {
   const { products } = useContext(CartContext)
 
   const isCartEmpty = products?.length === 0 || products === undefined
-  console.log(isCartEmpty)
 
   return (
     <HeaderContainer>

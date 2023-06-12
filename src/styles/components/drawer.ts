@@ -73,9 +73,13 @@ export const OrderInformationContainer = styled('div', {
     cursor: 'pointer',
     transition: 'background 0.2s',
 
-    '&:hover': {
+    '&:not(:disabled):hover': {
       transition: 'background 0.2s',
       background: '$green300',
+    },
+
+    '&:disabled': {
+      cursor: 'not-allowed',
     },
   },
 })

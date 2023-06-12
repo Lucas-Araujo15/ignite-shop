@@ -7,7 +7,7 @@ import {
   OrderInformationContainer,
 } from '../styles/components/drawer'
 import ProductCard from './product-card'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../contexts/cart-context'
 
 interface DrawerProps {
@@ -16,7 +16,14 @@ interface DrawerProps {
 }
 
 export default function Drawer({ status, changeStatus }: DrawerProps) {
-  const { products } = useContext(CartContext)
+  const { products, isCreatingCheckoutSession, handleBuyProduct } =
+    useContext(CartContext)
+  const [totalPrice, setTotalPrice] = useState<number>(0)
+  const isCartEmpty = products?.length === 0 || products === undefined
+
+  useEffect(() => {
+    setTotalPrice(products.reduce((acc, num) => acc + num.price, 0))
+  }, [products])
 
   return (
     <DrawerContainer drawer={status}>
@@ -38,10 +45,20 @@ export default function Drawer({ status, changeStatus }: DrawerProps) {
             </OrderInformation>
             <OrderInformation>
               <span>Valor total</span>
-              <span>R$ 270,00</span>
+              <span>
+                {new Intl.NumberFormat('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                }).format(totalPrice)}
+              </span>
             </OrderInformation>
           </div>
-          <button>Finalizar compra</button>
+          <button
+            disabled={isCartEmpty || isCreatingCheckoutSession}
+            onClick={handleBuyProduct}
+          >
+            Finalizar compra
+          </button>
         </OrderInformationContainer>
       </div>
     </DrawerContainer>
